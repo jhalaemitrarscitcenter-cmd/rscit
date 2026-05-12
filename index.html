@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JHALA EMITRA & RSCIT CENTER</title>
+
+<style>
+body{
+font-family:Arial,sans-serif;
+background:#eef3ff;
+margin:0;
+padding:20px;
+}
+
+.container{
+max-width:1000px;
+margin:auto;
+background:white;
+padding:25px;
+border-radius:15px;
+box-shadow:0 0 10px rgba(0,0,0,0.15);
+}
+
+h1{
+text-align:center;
+color:#003c99;
+margin-bottom:5px;
+}
+
+h2{
+text-align:center;
+color:#ff6600;
+margin-top:0;
+}
+
+.offer{
+background:#003c99;
+color:white;
+padding:15px;
+border-radius:10px;
+text-align:center;
+font-size:22px;
+font-weight:bold;
+margin-bottom:25px;
+}
+
+.row{
+display:flex;
+gap:15px;
+}
+
+.form-group{
+flex:1;
+margin-bottom:15px;
+}
+
+label{
+display:block;
+margin-bottom:6px;
+font-weight:bold;
+}
+
+input,textarea{
+width:100%;
+padding:10px;
+border:1px solid #ccc;
+border-radius:8px;
+box-sizing:border-box;
+}
+
+textarea{
+resize:vertical;
+}
+
+.discount-box{
+background:#fff5dd;
+padding:15px;
+border-radius:10px;
+margin-top:20px;
+}
+
+.result{
+background:#e8f4ff;
+padding:15px;
+border-radius:10px;
+margin-top:15px;
+font-size:18px;
+font-weight:bold;
+}
+
+button{
+width:100%;
+padding:15px;
+font-size:18px;
+background:#003c99;
+color:white;
+border:none;
+border-radius:10px;
+cursor:pointer;
+margin-top:20px;
+}
+
+button:hover{
+background:#002b70;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+margin-top:10px;
+}
+
+table,th,td{
+border:1px solid #ccc;
+}
+
+th,td{
+padding:10px;
+text-align:center;
+}
+
+.footer{
+text-align:center;
+margin-top:25px;
+font-size:14px;
+}
+
+@media(max-width:700px){
+.row{
+flex-direction:column;
+}
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>JHALA EMITRA & RSCIT CENTER</h1>
+<h2>RSCIT Admission Scholarship / Discount Form 2026</h2>
+
+<div class="offer">
+10% से 50% तक विशेष छूट — अंकों के आधार पर
+</div>
+
+<form id="studentForm">
+
+<div class="row">
+<div class="form-group">
+<label>Student Name</label>
+<input type="text" name="student_name" required>
+</div>
+
+<div class="form-group">
+<label>Father Name</label>
+<input type="text" name="father_name" required>
+</div>
+</div>
+
+<div class="row">
+<div class="form-group">
+<label>Mother Name</label>
+<input type="text" name="mother_name">
+</div>
+
+<div class="form-group">
+<label>Mobile Number</label>
+<input type="tel" name="mobile" required>
+</div>
+</div>
+
+<div class="row">
+<div class="form-group">
+<label>Aadhar Number</label>
+<input type="text" name="aadhar">
+</div>
+
+<div class="form-group">
+<label>Date of Birth</label>
+<input type="date" name="dob">
+</div>
+</div>
+
+<div class="form-group">
+<label>Address</label>
+<textarea name="address" rows="3"></textarea>
+</div>
+
+<div class="row">
+<div class="form-group">
+<label>10th Marks (%)</label>
+<input type="number" id="marks10" name="marks10">
+</div>
+
+<div class="form-group">
+<label>12th Marks (%)</label>
+<input type="number" id="marks12" name="marks12">
+</div>
+</div>
+
+<div class="row">
+<div class="form-group">
+<label>Passport Size Photo</label>
+<input type="file">
+</div>
+
+<div class="form-group">
+<label>Signature</label>
+<input type="file">
+</div>
+</div>
+
+<div class="discount-box">
+<h3>Discount Eligibility</h3>
+
+<table>
+<tr>
+<th>Percentage</th>
+<th>Discount</th>
+</tr>
+
+<tr><td>Below 60%</td><td>10%</td></tr>
+<tr><td>60% - 70%</td><td>20%</td></tr>
+<tr><td>70% - 80%</td><td>30%</td></tr>
+<tr><td>80% - 90%</td><td>40%</td></tr>
+<tr><td>Above 90%</td><td>50%</td></tr>
+
+</table>
+</div>
+
+<div class="result" id="discountResult">
+Eligible Discount: 0%
+</div>
+
+<button type="submit">Submit Form</button>
+
+</form>
+
+<div class="footer">
+Arnod, District Pratapgarh<br>
+93513 24116 | 8890200814
+</div>
+
+</div>
+
+<script>
+
+const scriptURL = 'https://script.google.com/macros/s/AKfycbxlsQUPMcX7qAUj0Jq8kOSXmsX8BLYVuqiNNEqk9fsXZiOuvpSWhnR50-dALWN78UL3/exec';
+
+function calculateDiscount(marks){
+if(marks >= 90){
+return 50;
+}
+else if(marks >= 80){
+return 40;
+}
+else if(marks >= 70){
+return 30;
+}
+else if(marks >= 60){
+return 20;
+}
+else{
+return 10;
+}
+}
+
+function updateDiscount(){
+
+const marks10 = parseFloat(document.getElementById('marks10').value) || 0;
+const marks12 = parseFloat(document.getElementById('marks12').value) || 0;
+
+const maxMarks = Math.max(marks10, marks12);
+
+const discount = calculateDiscount(maxMarks);
+
+document.getElementById('discountResult').innerHTML =
+'Eligible Discount: ' + discount + '%';
+
+}
+
+document.getElementById('marks10').addEventListener('input', updateDiscount);
+document.getElementById('marks12').addEventListener('input', updateDiscount);
+
+document.getElementById('studentForm').addEventListener('submit', async function(e){
+
+e.preventDefault();
+
+const marks10 = parseFloat(this.marks10.value) || 0;
+const marks12 = parseFloat(this.marks12.value) || 0;
+
+const maxMarks = Math.max(marks10, marks12);
+
+const discount = calculateDiscount(maxMarks);
+
+const data = {
+admission_no: 'RSCIT-' + Date.now(),
+student_name: this.student_name.value,
+father_name: this.father_name.value,
+mother_name: this.mother_name.value,
+mobile: this.mobile.value,
+aadhar: this.aadhar.value,
+dob: this.dob.value,
+address: this.address.value,
+marks10: marks10,
+marks12: marks12,
+discount: discount
+};
+
+try{
+
+await fetch(scriptURL, {
+method:'POST',
+body:JSON.stringify(data)
+});
+
+alert('Form Submitted Successfully!');
+
+this.reset();
+
+document.getElementById('discountResult').innerHTML =
+'Eligible Discount: 0%';
+
+}
+catch(error){
+
+alert('https://script.google.com/macros/s/AKfycbxlsQUPMcX7qAUj0Jq8kOSXmsX8BLYVuqiNNEqk9fsXZiOuvpSWhnR50-dALWN78UL3/exec');
+
+}
+
+});
+
+</script>
+
+</body>
+</html>
